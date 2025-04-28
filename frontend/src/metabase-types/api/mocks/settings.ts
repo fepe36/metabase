@@ -166,6 +166,13 @@ export const createMockSettings = (
     ["zh_HK", "Chinese (Hong Kong SAR China)"],
     ["zh_TW", "Chinese (Taiwan)"],
   ],
+  "available-timezones": [
+    // this is a subset of the timezones we have in the real app
+    "Europe/Paris",
+    "Pacific/Auckland",
+    "US/Mountain",
+    "UTC",
+  ],
   "bug-reporting-enabled": false,
   "bcc-enabled?": true,
   "cloud-gateway-ips": null,
@@ -239,6 +246,7 @@ export const createMockSettings = (
   "premium-embedding-token": null,
   "read-only-mode": false,
   "redirect-all-requests-to-https": false,
+  "report-timezone": "Europe/London",
   "report-timezone-short": "UTC",
   "report-timezone-long": "Europe/London",
   "saml-configured": false,
