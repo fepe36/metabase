@@ -11476,6 +11476,17 @@ databaseChangeLog:
             tableName: metabase_table
             constraintName: idx_unique_table
 
+  - changeSet:
+      id: v55.2025-05-07T11:43:54
+      author: johnswanson
+      comment: Add All External Users group
+      changes:
+        - sql:
+            sql: >-
+              INSERT INTO permissions_group (name, magic_group_type, is_tenant_group)
+              VALUES
+              ('All External Users', 'all-external-users', true);
+
   # >>>>>>>>>> DO NOT ADD NEW MIGRATIONS BELOW THIS LINE! ADD THEM ABOVE <<<<<<<<<<
 
 ########################################################################################################################
