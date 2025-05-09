@@ -46,7 +46,6 @@
         ; For other types of exceptions, rethrow
         (throw e)))))
 
-
 (api.macros/defendpoint :get "/dictionary"
   "Provides content translations stored in the content_translations table"
   [_route-params query-params _body]
