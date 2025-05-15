@@ -26,8 +26,9 @@ import { useUploadContentTranslationDictionaryMutation } from "metabase-enterpri
  * in mebibytes. */
 const maxFileSizeInMiB = 1.5;
 
-/** The maximum file size is 1.5 mebibytes (which is equals 1.57 metabytes),
- * but for simplicity let's express this approximately 1.5 megabytes. */
+/** The maximum file size is 1.5 mebibytes (which equals 1.57 metabytes).
+ * For simplicity, though, let's express this as 1.5 megabytes, which is
+ * approximately right. */
 const approxMaxFileSizeInMB = 1.5;
 
 /** This should equal the max-file-size variable in
