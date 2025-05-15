@@ -34,9 +34,13 @@ describe("scenarios > admin > localization > content translation", () => {
 
   describe("ee", () => {
     beforeEach(() => {
-      cy.intercept("POST", "api/ee/content-translation/upload-dictionary").as(
-        "uploadDictionary",
-      );
+      cy.intercept(
+        "POST",
+        "api/ee/content-translation/upload-dictionary",
+        cy.spy().as("uploadDictionarySpy"),
+      ).as("uploadDictionary");
+
+      cy.intercept("GET", "/api/collection/personal").as("personalCollection");
       H.restore();
       cy.signInAsAdmin();
       H.setTokenFeatures("all");
@@ -164,7 +168,7 @@ describe("scenarios > admin > localization > content translation", () => {
         });
       });
 
-      it("rejects a CSV upload that is too big", () => {
+      it("rejects, in the frontend, a CSV upload that is too big", () => {
         cy.visit("/admin/settings/localization");
         cy.get("#content-translation-dictionary-upload-input").selectFile(
           {
@@ -177,8 +181,12 @@ describe("scenarios > admin > localization > content translation", () => {
           { force: true },
         );
         cy.findByTestId("content-localization-setting").findByText(
-          "Upload failed",
+          /Upload a dictionary smaller than 1.5 MB/,
         );
+        cy.log(
+          "The frontend should prevent the upload attempt; the endpoint should not be called",
+        );
+        cy.get("@uploadDictionarySpy").should("not.have.been.called");
       });
     });
   });

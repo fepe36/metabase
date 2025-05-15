@@ -17,6 +17,8 @@
 (def ^:private max-string-length 255)
 
 ;; Maximum file size: 1.5MB
+;; This should equal the maxFileSizeInMiB variable in
+;; enterprise/frontend/src/metabase-enterprise/content_translation/components/ContentTranslationConfiguration.tsx
 (def ^:private max-file-size (* 1.5 1024 1024))
 
 (defn- row-has-correct-number-of-fields

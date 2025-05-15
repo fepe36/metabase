@@ -7,7 +7,7 @@ import {
   useRef,
   useState,
 } from "react";
-import { t } from "ttag";
+import { c, t } from "ttag";
 
 import { useDocsUrl } from "metabase/common/hooks";
 import { UploadInput } from "metabase/components/upload";
@@ -21,6 +21,19 @@ import {
 } from "metabase/forms";
 import { Group, Icon, List, Loader, Stack, Text } from "metabase/ui";
 import { useUploadContentTranslationDictionaryMutation } from "metabase-enterprise/api";
+
+/** Maximum file size for uploaded content-translation dictionaries, expressed
+ * in mebibytes. */
+const maxFileSizeInMiB = 1.5;
+
+/** The maximum file size is 1.5 mebibytes (which is equals 1.57 metabytes),
+ * but for simplicity let's express this approximately 1.5 megabytes. */
+const approxMaxFileSizeInMB = 1.5;
+
+/** This should equal the max-file-size variable in
+ * enterprise/backend/src/metabase_enterprise/content_translation/api/dictionary.clj
+ * */
+const maxFileSizeInBytes = maxFileSizeInMiB * 1024 * 1024;
 
 export const ContentTranslationConfiguration = () => {
   // eslint-disable-next-line no-unconditional-metabase-links-render -- This is used in admin settings
@@ -87,6 +100,15 @@ const UploadForm = ({
   const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.files?.length) {
       const file = event.target.files[0];
+
+      if (file.size > maxFileSizeInBytes) {
+        setErrorMessages([
+          c("{0} is a number")
+            .t`Upload a dictionary smaller than ${approxMaxFileSizeInMB} MB`,
+        ]);
+        return;
+      }
+
       await uploadFile(file);
       resetInput();
     }
