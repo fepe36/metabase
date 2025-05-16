@@ -415,6 +415,8 @@ describe("scenarios > dashboard > visualizer > basics", () => {
         ],
       });
 
+      cy.wait(5000);
+
       H.selectDataset(PRODUCTS_COUNT_BY_CATEGORY_PIE.name);
       H.assertWellItems({
         pieMetric: ["Count"],
