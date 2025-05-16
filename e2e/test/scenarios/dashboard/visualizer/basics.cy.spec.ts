@@ -415,14 +415,13 @@ describe("scenarios > dashboard > visualizer > basics", () => {
         ],
       });
 
-      H.selectDataset(ORDERS_COUNT_BY_CREATED_AT.name);
-      cy.wait(2000);
+      H.selectDataset(PRODUCTS_COUNT_BY_CATEGORY_PIE.name);
       H.assertWellItems({
-        vertical: ["Count"],
+        pieMetric: ["Count"],
+        pieDimensions: ["Category"],
       });
 
       cy.get("@undoButton").click();
-      cy.wait(2000);
       H.assertWellItems({
         vertical: [
           "Count",
