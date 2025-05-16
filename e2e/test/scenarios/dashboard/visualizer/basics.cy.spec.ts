@@ -401,6 +401,10 @@ describe("scenarios > dashboard > visualizer > basics", () => {
 
       H.switchToAddMoreData();
       H.addDataset(PRODUCTS_COUNT_BY_CREATED_AT.name);
+      H.assertWellItems({
+        vertical: ["Count", "Count (Products by Created At (Month))"],
+      });
+
       H.addDataset(PRODUCTS_AVERAGE_BY_CREATED_AT.name);
 
       H.assertWellItems({
@@ -411,6 +415,7 @@ describe("scenarios > dashboard > visualizer > basics", () => {
         ],
       });
 
+      cy.wait(1000);
       H.selectDataset(PRODUCTS_COUNT_BY_CREATED_AT.name);
       H.assertWellItems({
         vertical: ["Count"],
