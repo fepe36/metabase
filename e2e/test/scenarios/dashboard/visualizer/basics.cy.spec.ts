@@ -415,8 +415,7 @@ describe("scenarios > dashboard > visualizer > basics", () => {
         ],
       });
 
-      cy.wait(1000);
-      H.selectDataset(PRODUCTS_COUNT_BY_CREATED_AT.name);
+      H.selectDataset(ORDERS_COUNT_BY_CREATED_AT.name);
       H.assertWellItems({
         vertical: ["Count"],
       });
