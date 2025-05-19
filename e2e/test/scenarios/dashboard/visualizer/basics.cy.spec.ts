@@ -415,9 +415,13 @@ describe("scenarios > dashboard > visualizer > basics", () => {
         ],
       });
 
-      cy.wait(5000);
+      // cy.findByPlaceholderText("Search for something").clear().type("(Pie)");
+      // cy.wait(5000);
+      // cy.findByText(PRODUCTS_COUNT_BY_CATEGORY_PIE.name).click();
+      // cy.wait("@cardQuery");
 
       H.selectDataset(PRODUCTS_COUNT_BY_CATEGORY_PIE.name);
+
       H.assertWellItems({
         pieMetric: ["Count"],
         pieDimensions: ["Category"],
