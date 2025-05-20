@@ -25,7 +25,6 @@
 (set! *warn-on-reflection* true)
 
 (use-fixtures :once
-  mb.viz-test/with-spec-instrumentation-fixture
   (fixtures/initialize :test-users-personal-collections))
 
 (defn- delete-directory!
