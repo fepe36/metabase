@@ -1,0 +1,15 @@
+export const BUNDLED_PACKAGES = [
+  "@visx/axis",
+  "@visx/clip-path",
+  "@visx/grid",
+  "@visx/group",
+  "@visx/shape",
+  "@visx/text",
+  "classnames",
+  "crc-32",
+  "formik",
+  "moment-timezone",
+  "react-beautiful-dnd",
+  "react-virtualized",
+  "ttag",
+];

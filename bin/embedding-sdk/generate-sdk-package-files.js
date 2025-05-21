@@ -3,30 +3,22 @@
 /* eslint-disable import/no-commonjs, import/order, no-console */
 const fs = require("fs");
 const path = require("path");
+const {
+  BUNDLED_PACKAGES,
+} = require("../../frontend/build/embedding-sdk/constants/ignored-bundled-packages.mjs");
 
-const IGNORED_PACKAGES = [
-  "react",
-  "react-dom",
-  "@types/react",
-  "@types/react-dom",
-  "@types/react-router",
-  "@types/redux-auth-wrapper",
-  "@visx/axis",
-  "@visx/clip-path",
-  "@visx/grid",
-  "@visx/group",
-  "@visx/shape",
-  "@visx/text",
-  "formik",
-  "react-beautiful-dnd",
-];
+const IGNORED_REACT_PACKAGES = ["react", "react-dom"];
+const IGNORED_PACKAGES = [...IGNORED_REACT_PACKAGES, ...BUNDLED_PACKAGES];
+
 const SDK_DIST_DIR = path.resolve("./resources/embedding-sdk");
 
 function filterOuDependencies(object) {
   const result = {};
 
   Object.entries(object).forEach(([packageName, version]) => {
-    if (!IGNORED_PACKAGES.includes(packageName)) {
+    const isTypesPackage = packageName.startsWith("@types/");
+
+    if (!isTypesPackage && !IGNORED_PACKAGES.includes(packageName)) {
       result[packageName] = version;
     }
   });

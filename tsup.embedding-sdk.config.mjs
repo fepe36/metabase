@@ -9,6 +9,7 @@ import babel from "esbuild-plugin-babel";
 import fixReactVirtualizedPlugin from "esbuild-plugin-react-virtualized";
 import { build } from "tsup";
 
+import { BUNDLED_PACKAGES } from "./frontend/build/embedding-sdk/constants/ignored-bundled-packages.mjs";
 import { LICENSE_BANNER } from "./frontend/build/embedding-sdk/constants/license-banner.mjs";
 import { cssModulesPlugin } from "./frontend/build/embedding-sdk/plugins/css-modules-plugin.mjs";
 import { sideEffectsPlugin } from "./frontend/build/embedding-sdk/plugins/side-effects-plugin.mjs";
@@ -94,9 +95,7 @@ await build({
   metafile: false,
   // We have to generate `dts` via `tsc` to emit files on `dts` type errors
   dts: false,
-  noExternal: [
-    /^(?!(?:canvg(?:\/|$)|dompurify(?:\/|$)|react(?:\/|$)|react-dom(?:\/|$))).*/,
-  ],
+  noExternal: BUNDLED_PACKAGES,
   injectStyle: true,
   env: {
     BUILD_TIME: JSON.stringify(new Date().toISOString()),
@@ -139,10 +138,6 @@ await build({
       __support__: TEST_SUPPORT_PATH,
       e2e: E2E_PATH,
       style: ROOT_CSS_FILE_PATH,
-      icepick: path.resolve(
-        import.meta.dirname,
-        "node_modules/icepick/icepick.min",
-      ),
       "sdk-ee-plugins": path.join(ENTERPRISE_SRC_PATH, "sdk-plugins"),
       "ee-overrides": path.join(ENTERPRISE_SRC_PATH, "overrides"),
       "embedding-sdk": SDK_SRC_PATH,
