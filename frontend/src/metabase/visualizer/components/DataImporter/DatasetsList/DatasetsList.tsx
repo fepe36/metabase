@@ -2,6 +2,7 @@ import { useCallback, useMemo } from "react";
 
 import { skipToken, useListRecentsQuery, useSearchQuery } from "metabase/api";
 import { getDashboard } from "metabase/dashboard/selectors";
+import { trackSimpleEvent } from "metabase/lib/analytics";
 import { useDispatch, useSelector } from "metabase/lib/redux";
 import { isNotNull } from "metabase/lib/types";
 import { Flex, Loader } from "metabase/ui";
@@ -50,6 +51,13 @@ export function DatasetsList({
 
   const handleAddDataSource = useCallback(
     (source: VisualizerCardDataSource) => {
+      trackSimpleEvent({
+        event: "visualizer_data_changed",
+        event_detail: "datasource_added",
+        triggered_from: "visualizer-modal",
+        event_data: `${source.cardId}:${source.sourceId}`,
+      });
+
       dispatch(
         addDataSource({ cardId: source.cardId, cardEntityId: source.sourceId }),
       );
@@ -60,6 +68,13 @@ export function DatasetsList({
 
   const handleRemoveDataSource = useCallback(
     (source: VisualizerDataSource) => {
+      trackSimpleEvent({
+        event: "visualizer_data_changed",
+        event_detail: "datasource_removed",
+        triggered_from: "visualizer-modal",
+        event_data: source.id,
+      });
+
       dispatch(removeDataSource(source));
       setDataSourceCollapsed(source.id, true);
     },
