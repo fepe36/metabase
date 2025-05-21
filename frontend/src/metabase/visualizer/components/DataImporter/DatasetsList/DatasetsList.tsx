@@ -53,7 +53,7 @@ export function DatasetsList({
     (source: VisualizerCardDataSource) => {
       trackSimpleEvent({
         event: "visualizer_data_changed",
-        event_detail: "datasource_added",
+        event_detail: "visualizer_datasource_added",
         triggered_from: "visualizer-modal",
         event_data: `${source.cardId}:${source.sourceId}`,
       });
@@ -70,7 +70,7 @@ export function DatasetsList({
     (source: VisualizerDataSource) => {
       trackSimpleEvent({
         event: "visualizer_data_changed",
-        event_detail: "datasource_removed",
+        event_detail: "visualizer_datasource_removed",
         triggered_from: "visualizer-modal",
         event_data: source.id,
       });
